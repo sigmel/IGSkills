@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+
+# Include everything in our Tools folder
+!/Tools/**
