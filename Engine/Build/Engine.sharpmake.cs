@@ -13,7 +13,7 @@ namespace IGSkills
 		[Configure]
 		public override void ConfigureAll(Configuration conf, Target target)
 		{
-			base.ConfigureAll(conf, target); 
+			base.ConfigureAll(conf, target);
 			
 			conf.TargetLibraryPath = "[project.BasePath]/generated/lib/[conf.Name]";
 
