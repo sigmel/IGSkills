@@ -19,12 +19,6 @@ namespace IGSkills
 
 			conf.IncludePaths.Add("[project.BasePath]/Source/Public");
 
-			// Setup the precompiled headers for the project. Just assigning a
-			// value to those fields is enough for Sharpmake to understand that
-			// the project has precompiled headers.
-			conf.PrecompHeader = "precomp.hpp";
-			conf.PrecompSource = "precomp.cpp";
-
 			// The library wants LIBRARY_COMPILE defined when it compiles the
 			// library, so that it knows whether it must use dllexport or
 			// dllimport.

@@ -1,4 +1,3 @@
-#include "precomp.hpp"
 #include "function.hpp"
 
 long Ack(long m, long n)
