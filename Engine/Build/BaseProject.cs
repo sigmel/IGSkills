@@ -30,6 +30,14 @@ namespace IGSkills
 
 			conf.IntermediatePath = "[conf.ProjectPath]/obj/[target.Platform]_[conf.Name]";
 
+			conf.Options.Add(Options.Vc.General.CharacterSet.Unicode);
+			conf.Options.Add(Options.Vc.General.TreatWarningsAsErrors.Enable);
+
+			conf.Options.Add(new Sharpmake.Options.Vc.Compiler.DisableSpecificWarnings(
+				"4100", // unreferenced formal parameter
+				"4251"  // needs to have dll-interface to be used by clients
+				));
+
 			conf.Options.Add(Options.Vc.Linker.TreatLinkerWarningAsErrors.Enable);
 
 			conf.Defines.Add("_HAS_EXCEPTIONS=0");
