@@ -1,0 +1,1 @@
+Tools\Sharpmake\Sharpmake.Application.exe /sources('Projects/Tutorial/Build/Main.sharpmake.cs')
