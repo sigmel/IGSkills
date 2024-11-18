@@ -2,11 +2,11 @@ using Sharpmake;
 
 namespace IGSkills
 {
-	public abstract class BaseProject : Project
+	public abstract class BaseEngineProject : Project
 	{
 		public string BasePath = @"[project.SharpmakeCsPath]/../";
 
-		protected BaseProject()
+		protected BaseEngineProject()
 		{
 			SourceRootPath = "[project.BasePath]/Source";
 
@@ -33,6 +33,14 @@ namespace IGSkills
 			conf.Options.Add(Options.Vc.Linker.TreatLinkerWarningAsErrors.Enable);
 
 			conf.Defines.Add("_HAS_EXCEPTIONS=0");
+		}
+	}
+
+	public abstract class BaseProject : BaseEngineProject
+	{
+		public override void ConfigureAll(Project.Configuration conf, Target target)
+		{
+			base.ConfigureAll(conf, target);
 
 			conf.AddPublicDependency<IGSkills.EngineLibProject>(target);
 		}

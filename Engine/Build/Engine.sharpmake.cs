@@ -2,8 +2,8 @@ using Sharpmake;
 
 namespace IGSkills
 {
-	[Sharpmake.Generate]
-	public class EngineLibProject : BaseProject
+	[Generate]
+	public class EngineLibProject : BaseEngineProject
 	{
 		public EngineLibProject()
 		{
@@ -11,16 +11,11 @@ namespace IGSkills
 		}
 
 		[Configure]
-		public void Configure(Configuration conf, Target target)
+		public override void ConfigureAll(Configuration conf, Target target)
 		{
-			conf.Name = "[target.Optimization]_[target.OutputType]";
-			conf.ProjectPath = "[project.BasePath]/generated/projects";
+			base.ConfigureAll(conf, target); 
+			
 			conf.TargetLibraryPath = "[project.BasePath]/generated/lib/[conf.Name]";
-			conf.IntermediatePath = "[conf.ProjectPath]/obj/[target.Platform]_[conf.Name]";
-
-			conf.Defines.Add("_HAS_EXCEPTIONS=0");
-
-			conf.Options.Add(Options.Vc.Librarian.TreatLibWarningAsErrors.Enable);
 
 			conf.IncludePaths.Add("[project.BasePath]/Source/Public");
 
