@@ -15,7 +15,7 @@ namespace IGSkills
 		{
 			conf.Name = "[target.Optimization]_[target.OutputType]";
 			conf.ProjectPath = "[project.BasePath]/generated/projects";
-			conf.TargetLibraryPath = "[project.BasePath]/generated/lib";
+			conf.TargetLibraryPath = "[project.BasePath]/generated/lib/[conf.Name]";
 			conf.IntermediatePath = "[conf.ProjectPath]/obj/[target.Platform]_[conf.Name]";
 
 			conf.Defines.Add("_HAS_EXCEPTIONS=0");
