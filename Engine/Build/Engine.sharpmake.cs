@@ -3,33 +3,20 @@ using Sharpmake;
 namespace IGSkills
 {
 	[Sharpmake.Generate]
-	public class EngineLibProject : Project
+	public class EngineLibProject : BaseProject
 	{
-		public string BasePath = @"[project.SharpmakeCsPath]/../";
-
 		public EngineLibProject()
 		{
 			Name = "IGSkillsEngineLib";
-
-			AddTargets(new Target(
-				Platform.win64,
-				DevEnv.vs2022,
-				Optimization.Debug | Optimization.Release,
-				OutputType.Lib | OutputType.Dll
-			));
-
-			SourceRootPath = "[project.BasePath]/Source";
-
-			IsFileNameToLower = false;
 		}
 
-		[Configure()]
+		[Configure]
 		public void Configure(Configuration conf, Target target)
 		{
 			conf.Name = "[target.Optimization]_[target.OutputType]";
 			conf.ProjectPath = "[project.BasePath]/generated/projects";
 			conf.TargetLibraryPath = "[project.BasePath]/generated/lib";
-			conf.IntermediatePath = @"[conf.ProjectPath]/obj/[project.Name]/[target.Platform]_[conf.Name]_[target.DevEnv]";
+			conf.IntermediatePath = "[conf.ProjectPath]/obj/[target.Platform]_[conf.Name]";
 
 			conf.Defines.Add("_HAS_EXCEPTIONS=0");
 

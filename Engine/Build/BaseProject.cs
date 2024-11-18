@@ -2,13 +2,18 @@ using Sharpmake;
 
 namespace IGSkills
 {
-	public class BaseProject : Project
+	public abstract class BaseProject : Project
 	{
 		public string BasePath = @"[project.SharpmakeCsPath]/../";
 
-		public BaseProject()
+		protected BaseProject()
 		{
-			SourceRootPath = @"[project.BasePath]/Source";
+			SourceRootPath = "[project.BasePath]/Source";
+
+			// Include our build files for easy access
+			AdditionalSourceRootPaths.Add("[project.BasePath]/Build");
+			SourceFilesExtensions.Add("cs");
+
 			AddTargets(new Target(
 				Platform.win64,
 				DevEnv.vs2022,
@@ -21,10 +26,9 @@ namespace IGSkills
 		public virtual void ConfigureAll(Project.Configuration conf, Target target)
 		{
 			conf.Name = "[target.Optimization]_[target.OutputType]";
-			conf.ProjectFileName = "[project.Name]_[target.DevEnv]_[target.Platform]";
 			conf.ProjectPath = "[project.BasePath]/generated/projects";
 
-			conf.IntermediatePath = @"[conf.ProjectPath]/obj/[project.Name]/[target.Platform]_[conf.Name]_[target.DevEnv]";
+			conf.IntermediatePath = "[conf.ProjectPath]/obj/[target.Platform]_[conf.Name]";
 
 			conf.Options.Add(Options.Vc.Linker.TreatLinkerWarningAsErrors.Enable);
 
@@ -52,7 +56,7 @@ namespace IGSkills
 		public virtual void ConfigureAll(Configuration conf, Target target)
 		{
 			conf.Name = "[target.Optimization]_[target.OutputType]";
-			conf.SolutionFileName = "[solution.Name]_[target.DevEnv]_[target.Platform]";
+			conf.SolutionFileName = "[solution.Name]";
 			conf.SolutionPath = @"[solution.BasePath]";
 		}
 	}

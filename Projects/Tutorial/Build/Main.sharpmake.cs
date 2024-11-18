@@ -24,7 +24,7 @@ public class TutorialProject : IGSkills.BaseProject
 	//
 	// If we had instead specified vs2012 | vs2015 | vs2017 it would have been
 	// called 12 times. (3 x 2 x 2)
-	[Configure()]
+	[Configure]
 	public override void ConfigureAll(Project.Configuration conf, Target target)
 	{
 		base.ConfigureAll(conf, target);
@@ -41,7 +41,7 @@ public class TutorialSolution : IGSkills.BaseSolution
 		Name = "Tutorial";
 	}
 
-	[Configure()]
+	[Configure]
 	public override void ConfigureAll(Configuration conf, Target target)
 	{
 		base.ConfigureAll(conf, target);
