@@ -1,6 +1,4 @@
-#if !defined(_LIBRARY_APIEXPORT_HPP)
-#define _LIBRARY_APIEXPORT_HPP
-
+#pragma once
 // dllexport boilerplate
 #if defined(LIBRARY_DLL)
 #   if defined(_MSC_VER)
@@ -19,5 +17,3 @@
 #if !defined(LIBRARY_API)
 #   define LIBRARY_API 
 #endif
-
-#endif // _LIBRARY_APIEXPORT_HPP
