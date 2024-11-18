@@ -15,6 +15,8 @@ public class FlappyBirdProject : IGSkills.BaseProject
 	public override void ConfigureAll(Project.Configuration conf, Target target)
 	{
 		base.ConfigureAll(conf, target);
+
+		conf.Options.Add(Options.Vc.Linker.SubSystem.Windows);
 	}
 }
 
