@@ -24,6 +24,10 @@ namespace IGSkills
 			// dllimport.
 			conf.Defines.Add("LIBRARY_COMPILE");
 
+			conf.LibraryFiles.Add("d3d12");
+			conf.LibraryFiles.Add("dxgi");
+			conf.LibraryFiles.Add("d3dcompiler");
+			
 			if (target.OutputType == OutputType.Dll)
 			{
 				// We want this to output a shared library. (DLL)

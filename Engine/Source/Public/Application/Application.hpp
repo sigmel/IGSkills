@@ -2,17 +2,23 @@
 
 #include <memory>
 
-#include "Window/Window.hpp"
+#include "apiexport.hpp"
 
-class LIBRARY_API Application
+class Window;
+class IRenderDevice;
+
+class Application
 {
 public:
-	Application();
+	LIBRARY_API Application();
+	LIBRARY_API ~Application();
 
-	void MakeWindow(HINSTANCE hInstance, wchar_t* name, uint16_t width, uint16_t height);
+	LIBRARY_API void MakeWindow(void* instance, wchar_t* name, uint16_t width, uint16_t height);
+	LIBRARY_API void MakeRenderDevice();
 
-	void Run();
+	LIBRARY_API void Run();
 
 private:
 	std::unique_ptr<Window> _window;
+	std::unique_ptr<IRenderDevice> _renderDevice;
 };

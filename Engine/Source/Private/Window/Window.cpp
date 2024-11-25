@@ -13,8 +13,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
-Window::Window(HINSTANCE hInstance, wchar_t* name, uint16_t width, uint16_t height)
+Window::Window(void* instance, wchar_t* name, uint16_t width, uint16_t height)
 {
+	HINSTANCE hInstance = reinterpret_cast<HINSTANCE>(instance);
+
 	WNDCLASSEX windowClass = {};
 	windowClass.cbSize = sizeof(WNDCLASSEX);
 	windowClass.style = CS_HREDRAW | CS_VREDRAW;
