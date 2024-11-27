@@ -4,7 +4,7 @@ namespace IGSkills
 {
 	public abstract class BaseEngineProject : Project
 	{
-		public string BasePath = @"[project.SharpmakeCsPath]/../";
+		public string BasePath = "[project.SharpmakeCsPath]/../";
 
 		protected BaseEngineProject()
 		{
@@ -56,7 +56,7 @@ namespace IGSkills
 
 	public class BaseSolution : Solution
 	{
-		public string BasePath = @"[solution.SharpmakeCsPath]/../";
+		public string BasePath = "[solution.SharpmakeCsPath]/../";
 
 		public BaseSolution()
 		{
@@ -73,7 +73,7 @@ namespace IGSkills
 		{
 			conf.Name = "[target.Optimization]_[target.OutputType]";
 			conf.SolutionFileName = "[solution.Name]";
-			conf.SolutionPath = @"[solution.BasePath]";
+			conf.SolutionPath = "[solution.BasePath]";
 		}
 	}
 }
