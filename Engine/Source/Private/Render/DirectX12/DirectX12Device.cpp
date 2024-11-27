@@ -1,5 +1,7 @@
 #include "DirectX12Device.hpp"
 
+#include <cassert>
+
 #include "Window/Window.hpp"
 
 using namespace std;

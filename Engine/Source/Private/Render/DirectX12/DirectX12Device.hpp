@@ -5,8 +5,6 @@
 #include <wrl.h>
 #include <d3d12.h>
 #include <dxgi1_6.h>
-#include <d3dcompiler.h>
-#include <DirectXMath.h>
 
 #include "Render/RenderDevice.hpp"
 
@@ -14,6 +12,9 @@ class DirectX12Device final : public IRenderDevice
 {
 public:
 	DirectX12Device(Window* window);
+
+    ID3D12Device* GetDevice() { return _device.Get(); }
+    ID3D12GraphicsCommandList* GetCommandList() { return _commandList.Get(); }
 
     void SetThread() { _threadId = std::this_thread::get_id(); }
 
