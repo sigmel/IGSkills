@@ -19,10 +19,13 @@ namespace IGSkills
 
 			conf.IncludePaths.Add("[project.BasePath]/Source/Public");
 
+			conf.IncludePrivatePaths.Add("[project.BasePath]/Source/Private");
+
 			// The library wants LIBRARY_COMPILE defined when it compiles the
-			// library, so that it knows whether it must use dllexport or
-			// dllimport.
+			// library, so that it knows whether it must use dllexport or dllimport.
 			conf.Defines.Add("LIBRARY_COMPILE");
+
+			conf.Defines.Add("RENDERAPI_DIRECTX12");
 
 			conf.LibraryFiles.Add("d3d12");
 			conf.LibraryFiles.Add("dxgi");
