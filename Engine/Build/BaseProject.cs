@@ -14,6 +14,10 @@ namespace IGSkills
 			AdditionalSourceRootPaths.Add("[project.BasePath]/Build");
 			SourceFilesExtensions.Add("cs");
 
+			// Include our shader files for easy access
+			AdditionalSourceRootPaths.Add("[project.BasePath]/Content/Shaders");
+			SourceFilesExtensions.Add("hlsl");
+
 			AddTargets(new Target(
 				Platform.win64,
 				DevEnv.vs2022,
@@ -29,6 +33,9 @@ namespace IGSkills
 			conf.ProjectPath = "[project.BasePath]/generated/projects";
 
 			conf.IntermediatePath = "[conf.ProjectPath]/obj/[target.Platform]_[conf.Name]";
+
+			conf.VcxprojUserFile = new Project.Configuration.VcxprojUserFileSettings();
+			conf.VcxprojUserFile.LocalDebuggerWorkingDirectory = "$(OutDir)";
 
 			conf.Options.Add(Options.Vc.General.CharacterSet.Unicode);
 			conf.Options.Add(Options.Vc.General.TreatWarningsAsErrors.Enable);

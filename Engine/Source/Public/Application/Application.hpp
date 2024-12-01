@@ -6,6 +6,7 @@
 
 class Window;
 class IRenderDevice;
+class Sprite;
 
 class Application
 {
@@ -21,4 +22,5 @@ public:
 private:
 	std::unique_ptr<Window> _window;
 	std::unique_ptr<IRenderDevice> _renderDevice;
+	std::unique_ptr<Sprite> _sprite;
 };
