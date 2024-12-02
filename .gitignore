@@ -6,6 +6,7 @@
 *.lo
 *.o
 *.obj
+*.lst
 
 # Precompiled Headers
 *.gch
@@ -35,6 +36,13 @@
 /**/generated/**/*
 /**/.vs/**/*
 *.sln
+*.vcxproj.user
 
 # Include everything in our Tools folder
 !/Tools/**
+
+# Zlib rules
+/Engine/External/zlib*/**/Tmp/*
+/Engine/External/zlib*/**/*.pdb
+!/Engine/External/zlib*/**/*.dll
+!/Engine/External/zlib*/**/*.lib
