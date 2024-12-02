@@ -35,7 +35,7 @@ namespace IGSkills
 			conf.EventPostBuildExe.Add(
 				new Configuration.BuildStepCopy(
 					"[project.BasePath]/Content",
-					"output/[target.Platform]/[conf.Name]/Content",
+					"output/Content",
 					mirror: true
 				)
 			);

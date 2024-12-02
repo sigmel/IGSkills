@@ -35,7 +35,7 @@ namespace IGSkills
 			conf.IntermediatePath = "[conf.ProjectPath]/obj/[target.Platform]_[conf.Name]";
 
 			conf.VcxprojUserFile = new Project.Configuration.VcxprojUserFileSettings();
-			conf.VcxprojUserFile.LocalDebuggerWorkingDirectory = "$(OutDir)";
+			conf.VcxprojUserFile.LocalDebuggerWorkingDirectory = "$(ProjectDir)/output/";
 
 			conf.Options.Add(Options.Vc.General.CharacterSet.Unicode);
 			conf.Options.Add(Options.Vc.General.TreatWarningsAsErrors.Enable);
