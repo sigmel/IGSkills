@@ -63,6 +63,7 @@ namespace IGSkills
 			}
 
 			conf.AddPublicDependency<ZLib>(target);
+			conf.AddPublicDependency<LibPNG>(target);
 		}
 	}
 
@@ -103,6 +104,47 @@ namespace IGSkills
 			{
 				conf.LibraryPaths.Add("[project.OutputPath]/ZlibStatRelease");
 				conf.LibraryFiles.Add("zlibstat.lib");
+			}
+		}
+	}
+
+	[Export]
+	public class LibPNG : ExportProject
+	{
+		public string OutputPath = "[project.BasePath]/External/lpng1644/projects/vstudio";
+
+		public override void ConfigureAll(Configuration conf, Target target)
+		{
+			conf.IncludePaths.Add("[project.BasePath]/External/lpng1644");
+		}
+
+		public override void ConfigureDebug(Configuration conf, Target target)
+		{
+			if (target.OutputType == OutputType.Dll)
+			{
+				conf.LibraryPaths.Add("[project.OutputPath]/Debug");
+				conf.LibraryFiles.Add("libpng16.lib");
+				conf.TargetCopyFiles.Add("[project.OutputPath]/Debug/libpng16.dll");
+			}
+			else
+			{
+				conf.LibraryPaths.Add("[project.OutputPath]/Debug Library");
+				conf.LibraryFiles.Add("libpng16.lib");
+			}
+		}
+
+		public override void ConfigureRelease(Configuration conf, Target target)
+		{
+			if (target.OutputType == OutputType.Dll)
+			{
+				conf.LibraryPaths.Add("[project.OutputPath]/Release");
+				conf.LibraryFiles.Add("libpng16.lib");
+				conf.TargetCopyFiles.Add("[project.OutputPath]/Release/libpng16.dll");
+			}
+			else
+			{
+				conf.LibraryPaths.Add("[project.OutputPath]/Release Library");
+				conf.LibraryFiles.Add("libpng16.lib");
 			}
 		}
 	}
