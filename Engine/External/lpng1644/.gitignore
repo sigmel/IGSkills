@@ -17,7 +17,7 @@
 *.map
 
 # Compiled dynamic libraries
-*.dll
+#*.dll
 *.dylib
 *.so
 *.so.*
@@ -26,7 +26,7 @@
 *.a
 *.la
 *.lai
-*.lib
+#*.lib
 
 # Compiled executables
 *.app/

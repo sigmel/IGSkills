@@ -6,6 +6,7 @@
 *.lo
 *.o
 *.obj
+*.iobj
 *.lst
 
 # Precompiled Headers
@@ -32,6 +33,19 @@
 *.out
 *.app
 
+# Debug Info files
+*.bsc
+*.pdb
+*.ipdb
+
+# Output files
+*.log
+*.tlog
+*.lib.recipe
+*.dll.recipe
+*.exe.recipe
+*.sbr
+
 # Ignore everything in generated folders and our solutions
 /**/generated/**/*
 /**/.vs/**/*
@@ -43,6 +57,10 @@
 
 # Zlib rules
 /Engine/External/zlib*/**/Tmp/*
-/Engine/External/zlib*/**/*.pdb
 !/Engine/External/zlib*/**/*.dll
 !/Engine/External/zlib*/**/*.lib
+
+# LibPNG rules
+/Engine/External/lpng*/**/*.res
+!/Engine/External/lpng*/**/*.dll
+!/Engine/External/lpng*/**/*.lib
