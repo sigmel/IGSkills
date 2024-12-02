@@ -61,6 +61,49 @@ namespace IGSkills
 				// We want this to output a static library. (LIB)
 				conf.Output = Configuration.OutputType.Lib;
 			}
+
+			conf.AddPublicDependency<ZLib>(target);
+		}
+	}
+
+	[Export]
+	public class ZLib : ExportProject
+	{
+		public string OutputPath = "[project.BasePath]/External/zlib-1.2.11/contrib/vstudio/vc14/x64";
+
+		public override void ConfigureAll(Configuration conf, Target target)
+		{
+			conf.IncludePaths.Add("[project.BasePath]/External/zlib-1.2.11");
+		}
+
+		public override void ConfigureDebug(Configuration conf, Target target)
+		{
+			if (target.OutputType == OutputType.Dll)
+			{
+				conf.LibraryPaths.Add("[project.OutputPath]/ZlibDllDebug");
+				conf.LibraryFiles.Add("zlibwapi.lib");
+				conf.TargetCopyFiles.Add("[project.OutputPath]/ZlibDllDebug/zlibwapi.dll");
+			}
+			else
+			{
+				conf.LibraryPaths.Add("[project.OutputPath]/ZlibStatDebug");
+				conf.LibraryFiles.Add("zlibstat.lib");
+			}
+		}
+
+		public override void ConfigureRelease(Configuration conf, Target target)
+		{
+			if (target.OutputType == OutputType.Dll)
+			{
+				conf.LibraryPaths.Add("[project.OutputPath]/ZlibDllRelease");
+				conf.LibraryFiles.Add("zlibwapi.lib");
+				conf.TargetCopyFiles.Add("[project.OutputPath]/ZlibDllRelease/zlibwapi.dll");
+			}
+			else
+			{
+				conf.LibraryPaths.Add("[project.OutputPath]/ZlibStatRelease");
+				conf.LibraryFiles.Add("zlibstat.lib");
+			}
 		}
 	}
 }
