@@ -15,7 +15,7 @@ Application::~Application()
 {
 }
 
-void Application::MakeWindow(void* instance, wchar_t* name, uint16_t width, uint16_t height)
+void Application::MakeWindow(void* instance, const char16_t* name, uint16_t width, uint16_t height)
 {
 	_window = std::make_unique<Window>(instance, name, width, height);
 }

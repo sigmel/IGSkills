@@ -9,7 +9,7 @@
 class Window
 {
 public:
-	Window(void* instance, wchar_t* name, uint16_t width, uint16_t height);
+	Window(void* instance, const char16_t* name, uint16_t width, uint16_t height);
 	~Window();
 
 	bool ProcessMessages();

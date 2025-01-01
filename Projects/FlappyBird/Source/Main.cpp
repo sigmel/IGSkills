@@ -10,7 +10,7 @@ int wWinMain(
 )
 {
 	Application app;
-	app.MakeWindow(hInstance, L"Flappy Bird", 1280, 720);
+	app.MakeWindow(hInstance, u"Flappy Bird", 1280, 720);
 	app.MakeRenderDevice();
 	app.Run();
 	return 0;

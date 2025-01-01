@@ -14,7 +14,7 @@ public:
 	LIBRARY_API Application();
 	LIBRARY_API ~Application();
 
-	LIBRARY_API void MakeWindow(void* instance, wchar_t* name, uint16_t width, uint16_t height);
+	LIBRARY_API void MakeWindow(void* instance, const char16_t* name, uint16_t width, uint16_t height);
 	LIBRARY_API void MakeRenderDevice();
 
 	LIBRARY_API void Run();

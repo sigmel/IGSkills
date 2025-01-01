@@ -13,7 +13,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
-Window::Window(void* instance, wchar_t* name, uint16_t width, uint16_t height)
+Window::Window(void* instance, const char16_t* name, uint16_t width, uint16_t height)
 {
 	HINSTANCE hInstance = reinterpret_cast<HINSTANCE>(instance);
 
@@ -26,7 +26,7 @@ Window::Window(void* instance, wchar_t* name, uint16_t width, uint16_t height)
 	windowClass.hIconSm = LoadIcon(hInstance, nullptr);
 	windowClass.hCursor = LoadCursor(hInstance, IDC_ARROW);
 	windowClass.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1);
-	windowClass.lpszClassName = name;
+	windowClass.lpszClassName = reinterpret_cast<const wchar_t*>(name);
 	RegisterClassEx(&windowClass);
 
 	RECT windowRect = { 0, 0, width, height };
@@ -41,8 +41,8 @@ Window::Window(void* instance, wchar_t* name, uint16_t width, uint16_t height)
 	uint32_t windowY = (screenHeight - windowHeight) / 2;
 
 	_hWnd = CreateWindow(
-		name,
-		name,
+		reinterpret_cast<const wchar_t*>(name),
+		reinterpret_cast<const wchar_t*>(name),
 		WS_OVERLAPPEDWINDOW,
 		windowX,
 		windowY,
