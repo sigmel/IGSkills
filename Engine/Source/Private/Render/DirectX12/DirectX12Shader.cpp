@@ -14,7 +14,7 @@ static const std::unordered_map<std::string, DXGI_FORMAT> kVertexInfoMap = {
     {IVertexBuffer::kNormal, DXGI_FORMAT_R32G32B32_FLOAT}
 };
 
-DirectX12Shader::DirectX12Shader(IRenderDevice* device, const std::wstring& filename, const std::string& vertexFunction, const std::string& pixelFunction, const std::vector<std::string>& vertexDescription)
+DirectX12Shader::DirectX12Shader(IRenderDevice* device, const std::u16string& filename, const std::string& vertexFunction, const std::string& pixelFunction, const std::vector<std::string>& vertexDescription)
 {
     DirectX12Device* dx12Device = static_cast<DirectX12Device*>(device);
 
@@ -27,12 +27,12 @@ DirectX12Shader::DirectX12Shader(IRenderDevice* device, const std::wstring& file
     Microsoft::WRL::ComPtr<ID3DBlob> errorBlob;
 
     // shaders
-    HRESULT result = D3DCompileFromFile(filename.c_str(), nullptr, nullptr, vertexFunction.c_str(), "vs_5_1", compileFlags, 0, &_vertexShaderBlob, &errorBlob);
+    HRESULT result = D3DCompileFromFile(reinterpret_cast<const wchar_t*>(filename.c_str()), nullptr, nullptr, vertexFunction.c_str(), "vs_5_1", compileFlags, 0, &_vertexShaderBlob, &errorBlob);
     if (FAILED(result))
     {
         OutputDebugStringA(reinterpret_cast<char*>(errorBlob->GetBufferPointer()));
     }
-	result = D3DCompileFromFile(filename.c_str(), nullptr, nullptr, pixelFunction.c_str(), "ps_5_1", compileFlags, 0, &_pixelShaderBlob, &errorBlob);
+	result = D3DCompileFromFile(reinterpret_cast<const wchar_t*>(filename.c_str()), nullptr, nullptr, pixelFunction.c_str(), "ps_5_1", compileFlags, 0, &_pixelShaderBlob, &errorBlob);
     if (FAILED(result))
     {
         OutputDebugStringA(reinterpret_cast<char*>(errorBlob->GetBufferPointer()));

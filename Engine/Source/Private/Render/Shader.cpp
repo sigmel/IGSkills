@@ -6,7 +6,7 @@
 #error "No valid Render API defined"
 #endif
 
-std::unique_ptr<IShader> IShader::Make(IRenderDevice* device, const std::wstring& filename, const std::string& vertexFunction, const std::string& pixelFunction, const std::vector<std::string>& vertexDescription)
+std::unique_ptr<IShader> IShader::Make(IRenderDevice* device, const std::u16string& filename, const std::string& vertexFunction, const std::string& pixelFunction, const std::vector<std::string>& vertexDescription)
 {
 #if RENDERAPI_DIRECTX12
 	return std::make_unique<DirectX12Shader>(device, filename, vertexFunction, pixelFunction, vertexDescription);

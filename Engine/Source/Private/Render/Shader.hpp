@@ -9,5 +9,5 @@ class IRenderDevice;
 class IShader
 {
 public:
-	static std::unique_ptr<IShader> Make(IRenderDevice* device, const std::wstring& filename, const std::string& vertexFunction, const std::string& pixelFunction, const std::vector<std::string>& vertexDescription);
+	static std::unique_ptr<IShader> Make(IRenderDevice* device, const std::u16string& filename, const std::string& vertexFunction, const std::string& pixelFunction, const std::vector<std::string>& vertexDescription);
 };

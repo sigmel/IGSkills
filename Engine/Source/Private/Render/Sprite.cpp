@@ -28,7 +28,7 @@ Sprite::Sprite(IRenderDevice* device, SkFloat2 position, SkFloat2 size):
 	_position(position),
 	_size(size),
 	_vertexBuffer(IVertexBuffer::Make(device, kVertices, sizeof(kVertices), sizeof(IVertexBuffer::VertexPosColor))),
-	_shader(IShader::Make(device, L"Content/Shaders/Sprite.hlsl", "VSMain", "PSMain", IVertexBuffer::VertexPosColor::kDescription))
+	_shader(IShader::Make(device, u"Content/Shaders/Sprite.hlsl", "VSMain", "PSMain", IVertexBuffer::VertexPosColor::kDescription))
 {
 }
 

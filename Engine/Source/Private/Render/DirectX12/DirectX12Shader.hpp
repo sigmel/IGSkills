@@ -11,7 +11,7 @@
 class DirectX12Shader final : public IShader
 {
 public:
-	DirectX12Shader(IRenderDevice* device, const std::wstring& filename, const std::string& vertexFunction, const std::string& pixelFunction, const std::vector<std::string>& vertexDescription);
+	DirectX12Shader(IRenderDevice* device, const std::u16string& filename, const std::string& vertexFunction, const std::string& pixelFunction, const std::vector<std::string>& vertexDescription);
 
     ID3D12RootSignature* GetRootSignature() { return _rootSignature.Get(); }
     ID3D12PipelineState* GetPipelineState() { return _pipelineState.Get(); }
