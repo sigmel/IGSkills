@@ -4,7 +4,7 @@
 
 #include "Math/Math.hpp"
 
-#include "apiexport.hpp"
+#include "Core/ApiExport.hpp"
 
 class IRenderDevice;
 class IVertexBuffer;

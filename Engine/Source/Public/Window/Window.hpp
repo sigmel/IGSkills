@@ -4,7 +4,7 @@
 
 #include <windows.h>
 
-#include "apiexport.hpp"
+#include "Core/ApiExport.hpp"
 
 class Window
 {
