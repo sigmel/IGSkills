@@ -38,6 +38,7 @@ namespace IGSkills
 			IsFileNameToLower = false;
 		}
 
+		[Configure]
 		public virtual void ConfigureAll(Project.Configuration conf, Target target)
 		{
 			conf.Name = "[target.Optimization]_[target.OutputType]";
@@ -71,6 +72,16 @@ namespace IGSkills
 			base.ConfigureAll(conf, target);
 
 			conf.AddPublicDependency<IGSkills.EngineLibProject>(target);
+
+			conf.Options.Add(Options.Vc.Linker.SubSystem.Windows);
+
+			// Include all content for the engine and game
+			// need to do this manually because Sharpmake doesn't include an option to do subdirectories and I didn't want to make a C# function that will iterate and set up a bunch of BuildStepCopy commands for each directory
+			string EngineInputPath = "[project.BasePath]/../../Engine/Content";
+			string ProjectInputPath = "[project.BasePath]/Content";
+			string OutputPath = "output/Content";
+			conf.EventPostBuild.Add($"robocopy.exe /xo /ns /nc /np /njh /njs /ndl /nfl /e \"{EngineInputPath}\" \"{OutputPath}\" \"*\" > nul & if %ERRORLEVEL% GEQ 8 (echo Copy failed & exit 1) else (type nul>nul)");
+			conf.EventPostBuild.Add($"robocopy.exe /xo /ns /nc /np /njh /njs /ndl /nfl /e \"{ProjectInputPath}\" \"{OutputPath}\" \"*\" > nul & if %ERRORLEVEL% GEQ 8 (echo Copy failed & exit 1) else (type nul>nul)");
 		}
 	}
 
@@ -114,6 +125,7 @@ namespace IGSkills
 			IsFileNameToLower = false;
 		}
 
+		[Configure]
 		public virtual void ConfigureAll(Configuration conf, Target target)
 		{
 			conf.Name = "[target.Optimization]_[target.OutputType]";

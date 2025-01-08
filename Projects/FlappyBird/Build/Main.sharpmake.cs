@@ -10,14 +10,6 @@ public class FlappyBirdProject : IGSkills.BaseProject
 	{
 		Name = "FlappyBird";
 	}
-
-	[Configure]
-	public override void ConfigureAll(Project.Configuration conf, Target target)
-	{
-		base.ConfigureAll(conf, target);
-
-		conf.Options.Add(Options.Vc.Linker.SubSystem.Windows);
-	}
 }
 
 [Generate]
@@ -28,7 +20,6 @@ public class FlappyBirdSolution : IGSkills.BaseSolution
 		Name = "FlappyBird";
 	}
 
-	[Configure]
 	public override void ConfigureAll(Configuration conf, Target target)
 	{
 		base.ConfigureAll(conf, target);

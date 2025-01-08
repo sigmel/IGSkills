@@ -10,7 +10,6 @@ namespace IGSkills
 			Name = "IGSkillsEngineLib";
 		}
 
-		[Configure]
 		public override void ConfigureAll(Configuration conf, Target target)
 		{
 			base.ConfigureAll(conf, target);
@@ -30,15 +29,6 @@ namespace IGSkills
 			conf.LibraryFiles.Add("d3d12");
 			conf.LibraryFiles.Add("dxgi");
 			conf.LibraryFiles.Add("d3dcompiler");
-
-			// Include all engine content for the game
-			conf.EventPostBuildExe.Add(
-				new Configuration.BuildStepCopy(
-					"[project.BasePath]/Content",
-					"output/Content",
-					mirror: true
-				)
-			);
 
 			if (target.OutputType == OutputType.Dll)
 			{
