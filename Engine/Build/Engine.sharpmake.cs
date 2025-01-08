@@ -101,7 +101,7 @@ namespace IGSkills
 	[Export]
 	public class LibPNG : ExportProject
 	{
-		public string OutputPath = "[project.BasePath]/External/lpng1644/projects/vstudio";
+		public string OutputPath = "[project.BasePath]/External/lpng1644/projects/vstudio/x64";
 
 		public override void ConfigureAll(Configuration conf, Target target)
 		{
@@ -112,13 +112,13 @@ namespace IGSkills
 		{
 			if (target.OutputType == OutputType.Dll)
 			{
-				conf.LibraryPaths.Add("[project.OutputPath]/x64/Debug");
+				conf.LibraryPaths.Add("[project.OutputPath]/Debug");
 				conf.LibraryFiles.Add("libpng16.lib");
-				conf.TargetCopyFiles.Add("[project.OutputPath]/x64/Debug/libpng16.dll");
+				conf.TargetCopyFiles.Add("[project.OutputPath]/Debug/libpng16.dll");
 			}
 			else
 			{
-				conf.LibraryPaths.Add("[project.OutputPath]/x64/Debug Library");
+				conf.LibraryPaths.Add("[project.OutputPath]/Debug Library");
 				conf.LibraryFiles.Add("libpng16.lib");
 			}
 		}
@@ -127,13 +127,13 @@ namespace IGSkills
 		{
 			if (target.OutputType == OutputType.Dll)
 			{
-				conf.LibraryPaths.Add("[project.OutputPath]/x64/Release");
+				conf.LibraryPaths.Add("[project.OutputPath]/Release");
 				conf.LibraryFiles.Add("libpng16.lib");
-				conf.TargetCopyFiles.Add("[project.OutputPath]/x64/Release/libpng16.dll");
+				conf.TargetCopyFiles.Add("[project.OutputPath]/Release/libpng16.dll");
 			}
 			else
 			{
-				conf.LibraryPaths.Add("[project.OutputPath]/x64/Release Library");
+				conf.LibraryPaths.Add("[project.OutputPath]/Release Library");
 				conf.LibraryFiles.Add("libpng16.lib");
 			}
 		}
