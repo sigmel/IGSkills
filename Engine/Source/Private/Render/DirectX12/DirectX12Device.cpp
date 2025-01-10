@@ -106,15 +106,19 @@ DirectX12Device::DirectX12Device(Window* window)
 	_factory->MakeWindowAssociation(window->GetWindow(), DXGI_MWA_NO_ALT_ENTER);
 	swapChain.As(&_swapChain);
 
-	D3D12_DESCRIPTOR_HEAP_DESC descriptorDesc = {};
-	descriptorDesc.NumDescriptors = NUM_BACK_BUFFERS;
-	descriptorDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
-	descriptorDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
+	D3D12_DESCRIPTOR_HEAP_DESC descriptorDesc = {
+		.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV,
+		.NumDescriptors = NUM_BACK_BUFFERS,
+	};
 	_device->CreateDescriptorHeap(&descriptorDesc, IID_PPV_ARGS(&_rtvHeap));
 
-	descriptorDesc.NumDescriptors = 1;
 	descriptorDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_DSV;
+	descriptorDesc.NumDescriptors = 1;
 	_device->CreateDescriptorHeap(&descriptorDesc, IID_PPV_ARGS(&_dsvHeap));
+
+	descriptorDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
+	descriptorDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
+	_device->CreateDescriptorHeap(&descriptorDesc, IID_PPV_ARGS(&_srvHeap));
 
 	Resize(swapDesc.Width, swapDesc.Height);
 
@@ -135,8 +139,11 @@ void DirectX12Device::SetShader(IShader* shader)
 	assert(_threadId == this_thread::get_id());
 
 	DirectX12Shader* d3dShader = static_cast<DirectX12Shader*>(shader);
+	ID3D12DescriptorHeap* heaps[] = { _srvHeap.Get() };
+	_commandList->SetDescriptorHeaps(1, heaps);
 	_commandList->SetPipelineState(d3dShader->GetPipelineState());
 	_commandList->SetGraphicsRootSignature(d3dShader->GetRootSignature());
+	_commandList->SetGraphicsRootDescriptorTable(0, _srvHeap->GetGPUDescriptorHandleForHeapStart());
 }
 
 void DirectX12Device::DrawTriangles(IVertexBuffer* vertexBuffer)

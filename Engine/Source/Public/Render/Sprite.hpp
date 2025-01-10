@@ -9,11 +9,13 @@
 class IRenderDevice;
 class IVertexBuffer;
 class IShader;
+class ITexture;
+class FileManager;
 
 class Sprite
 {
 public:
-	LIBRARY_API Sprite(IRenderDevice* device, SkFloat2 position, SkFloat2 size);
+	LIBRARY_API Sprite(IRenderDevice* device, FileManager* file, SkFloat2 position, SkFloat2 size);
 	LIBRARY_API ~Sprite();
 
 	LIBRARY_API void Render(IRenderDevice* device);
@@ -24,4 +26,5 @@ private:
 
 	std::unique_ptr<IVertexBuffer> _vertexBuffer;
 	std::unique_ptr<IShader> _shader;
+	std::unique_ptr<ITexture> _texture;
 };

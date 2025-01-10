@@ -28,7 +28,7 @@ void Application::MakeRenderDevice()
 	_renderDevice = IRenderDevice::Make(_window.get());
 
 	_renderDevice->StartInitResources();
-	_sprite = std::make_unique<Sprite>(_renderDevice.get(), SkFloat2(0, 0), SkFloat2(0, 0));
+	_sprite = std::make_unique<Sprite>(_renderDevice.get(), _fileManager.get(), SkFloat2(0, 0), SkFloat2(0, 0));
 	_renderDevice->EndInitResources();
 }
 
