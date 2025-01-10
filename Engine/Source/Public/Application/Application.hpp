@@ -7,6 +7,7 @@
 class Window;
 class IRenderDevice;
 class Sprite;
+class FileManager;
 
 class Application
 {
@@ -20,6 +21,7 @@ public:
 	LIBRARY_API void Run();
 
 private:
+	std::unique_ptr<FileManager> _fileManager;
 	std::unique_ptr<Window> _window;
 	std::unique_ptr<IRenderDevice> _renderDevice;
 	std::unique_ptr<Sprite> _sprite;

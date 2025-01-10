@@ -2,6 +2,7 @@
 
 #include <cassert>
 
+#include "File/File.hpp"
 #include "Window/Window.hpp"
 #include "Render/RenderDevice.hpp"
 
@@ -9,6 +10,7 @@
 
 Application::Application()
 {
+	_fileManager = std::make_unique<FileManager>();
 }
 
 Application::~Application()
