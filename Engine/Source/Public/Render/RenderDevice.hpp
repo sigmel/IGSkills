@@ -7,6 +7,7 @@
 class Window;
 class IShader;
 class IVertexBuffer;
+class IConstantBuffer;
 
 class IRenderDevice
 {
@@ -17,6 +18,8 @@ public:
 	virtual void Clear(float r, float g, float b, float depth) = 0;
 
 	virtual void SetShader(IShader* shader) = 0;
+	virtual void SetConstantData(void* data, size_t size) = 0;
+	virtual void SetConstantBuffer(IConstantBuffer* shader) = 0;
 
 	virtual void DrawTriangles(IVertexBuffer* vertexBuffer) = 0;
 

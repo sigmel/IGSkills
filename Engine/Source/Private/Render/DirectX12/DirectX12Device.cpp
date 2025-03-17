@@ -116,6 +116,7 @@ DirectX12Device::DirectX12Device(Window* window)
 	descriptorDesc.NumDescriptors = 1;
 	_device->CreateDescriptorHeap(&descriptorDesc, IID_PPV_ARGS(&_dsvHeap));
 
+	// @todo: figure out a way to make these shader descriptor heaps more programmatic
 	descriptorDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
 	descriptorDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
 	_device->CreateDescriptorHeap(&descriptorDesc, IID_PPV_ARGS(&_srvHeap));
@@ -143,7 +144,19 @@ void DirectX12Device::SetShader(IShader* shader)
 	_commandList->SetDescriptorHeaps(1, heaps);
 	_commandList->SetPipelineState(d3dShader->GetPipelineState());
 	_commandList->SetGraphicsRootSignature(d3dShader->GetRootSignature());
-	_commandList->SetGraphicsRootDescriptorTable(0, _srvHeap->GetGPUDescriptorHandleForHeapStart());
+
+	_commandList->SetGraphicsRootDescriptorTable(2, _srvHeap->GetGPUDescriptorHandleForHeapStart());
+}
+
+void DirectX12Device::SetConstantData(void* data, size_t size)
+{
+	_commandList->SetGraphicsRoot32BitConstants(0, static_cast<uint32_t>(size / 4), data, 0);
+}
+
+void DirectX12Device::SetConstantBuffer(IConstantBuffer* constantBuffer)
+{
+	DirectX12ConstantBuffer* d3dConstantBuffer = static_cast<DirectX12ConstantBuffer*>(constantBuffer);
+	_commandList->SetGraphicsRootConstantBufferView(1, d3dConstantBuffer->GetGPUAddress(_currentBackBufferIndex));
 }
 
 void DirectX12Device::DrawTriangles(IVertexBuffer* vertexBuffer)

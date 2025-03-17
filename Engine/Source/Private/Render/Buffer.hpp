@@ -43,3 +43,13 @@ public:
 
     static std::unique_ptr<IVertexBuffer> Make(IRenderDevice* device, const void* data, size_t dataSize, size_t stride);
 };
+
+class IConstantBuffer
+{
+public:
+    virtual ~IConstantBuffer() = default;
+
+    static std::unique_ptr<IConstantBuffer> Make(IRenderDevice* device, size_t size);
+
+    virtual void Update(IRenderDevice* device, void* data, size_t size) = 0;
+};

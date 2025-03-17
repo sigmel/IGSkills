@@ -8,6 +8,7 @@
 
 class IRenderDevice;
 class IVertexBuffer;
+class IConstantBuffer;
 class IShader;
 class ITexture;
 class FileManager;
@@ -21,10 +22,17 @@ public:
 	LIBRARY_API void Render(IRenderDevice* device);
 
 private:
+	struct ConstantBuffer
+	{
+		SkMatrix _worldMatrix;
+	};
+
 	SkFloat2 _position;
 	SkFloat2 _size;
+	ConstantBuffer _spriteInfo;
 
 	std::unique_ptr<IVertexBuffer> _vertexBuffer;
+	std::unique_ptr<IConstantBuffer> _constantBuffer;
 	std::unique_ptr<IShader> _shader;
 	std::unique_ptr<ITexture> _texture;
 };

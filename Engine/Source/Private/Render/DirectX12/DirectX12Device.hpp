@@ -19,6 +19,8 @@ public:
 	void SetThread() { _threadId = std::this_thread::get_id(); }
 
 	void SetShader(IShader* shader) override;
+	void SetConstantData(void* data, size_t size) override;
+	void SetConstantBuffer(IConstantBuffer* constantBuffer) override;
 
 	void DrawTriangles(IVertexBuffer* vertexBuffer) override;
 
@@ -48,6 +50,9 @@ public:
 	}
 
 	ID3D12DescriptorHeap* GetSRVHeap() { return _srvHeap.Get(); }
+
+	static constexpr uint32_t GetNumBackBuffers() { return NUM_BACK_BUFFERS; }
+	uint32_t GetCurrentBackBufferIndex() const { return _currentBackBufferIndex; }
 
 private:
 	static constexpr uint32_t NUM_BACK_BUFFERS = 2;

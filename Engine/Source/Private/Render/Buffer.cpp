@@ -35,3 +35,12 @@ std::unique_ptr<IVertexBuffer> IVertexBuffer::Make(IRenderDevice* device, const 
 	return nullptr;
 #endif
 }
+
+std::unique_ptr<IConstantBuffer> IConstantBuffer::Make(IRenderDevice* device, size_t size)
+{
+#if RENDERAPI_DIRECTX12
+	return std::make_unique<DirectX12ConstantBuffer>(device, size);
+#else
+	return nullptr;
+#endif
+}

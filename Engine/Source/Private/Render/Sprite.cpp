@@ -7,8 +7,6 @@
 
 #include "File/File.hpp"
 
-using namespace std;
-
 static const IVertexBuffer::VertexPosUV kVertices[] = {
 	{{0, 0, 0}, {0, 1}}, // bottom left
 	{{0, 1, 0}, {0, 0}}, // top left
@@ -33,9 +31,11 @@ Sprite::Sprite(IRenderDevice* device, FileManager* file, SkFloat2 position, SkFl
 	_position(position),
 	_size(size),
 	_vertexBuffer(IVertexBuffer::Make(device, kVertices, sizeof(kVertices), sizeof(IVertexBuffer::VertexPosUV))),
+	_constantBuffer(IConstantBuffer::Make(device, sizeof(ConstantBuffer))),
 	_shader(IShader::Make(device, u"Content/Shaders/Sprite.hlsl", "VSMain", "PSMain", IVertexBuffer::VertexPosUV::kDescription)),
 	_texture(ITexture::Make(device, file->OpenFile(u"Content/Sprites/FlappyBirdSingle.png").get()))
 {
+	_spriteInfo._worldMatrix = SkIdentityMatrix();
 }
 
 Sprite::~Sprite()
@@ -45,5 +45,8 @@ Sprite::~Sprite()
 void Sprite::Render(IRenderDevice* device)
 {
 	device->SetShader(_shader.get());
+	device->SetConstantData(&_spriteInfo._worldMatrix, sizeof(_spriteInfo._worldMatrix));
+	_constantBuffer->Update(device, &_spriteInfo._worldMatrix, sizeof(_spriteInfo._worldMatrix)); // @todo: move this to be per frame
+	device->SetConstantBuffer(_constantBuffer.get());
 	device->DrawTriangles(_vertexBuffer.get());
 }

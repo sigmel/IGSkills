@@ -159,8 +159,12 @@ DirectX12Texture::DirectX12Texture(IRenderDevice* device, IFile* file)
 			IID_PPV_ARGS(&_uploadTexture)
 		);
 
+		D3D12_RANGE range = {
+			.Begin = 0,
+			.End = 0,
+		};
 		uint8_t* uploadData = nullptr;
-		_uploadTexture->Map(0, nullptr, reinterpret_cast<void**>(&uploadData));
+		_uploadTexture->Map(0, &range, reinterpret_cast<void**>(&uploadData));
 		for (uint32_t y = 0; y < height; y++)
 		{
 			memcpy(&uploadData[y * subresourceFootprint.Footprint.RowPitch], &textureData[y * width * TEXTURE_PIXEL_SIZE], width* TEXTURE_PIXEL_SIZE);

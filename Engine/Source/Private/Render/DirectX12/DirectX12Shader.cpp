@@ -40,18 +40,42 @@ DirectX12Shader::DirectX12Shader(IRenderDevice* device, const std::u16string& fi
 
 	// root signature
 	// @TODO: Figure out a way to make this more programmatic as it only supports a single type of shader at the moment
-	D3D12_DESCRIPTOR_RANGE1 descriptorRange = {
+	D3D12_DESCRIPTOR_RANGE1 srvDescriptorRange = {
 		.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV,
 		.NumDescriptors = 1,
-		.BaseShaderRegister = 0
+		.BaseShaderRegister = 0,
+		.RegisterSpace = 0,
+		.Flags = D3D12_DESCRIPTOR_RANGE_FLAG_NONE,
+		.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND
 	};
-	D3D12_ROOT_PARAMETER1 rootParameter = {
-		.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE,
-		.DescriptorTable = {
-			.NumDescriptorRanges = 1,
-			.pDescriptorRanges = &descriptorRange,
+	// These are sorted by most frequently changing (per draw) to least (per frame)
+	D3D12_ROOT_PARAMETER1 rootParameter[3] = {
+		{
+			.ParameterType = D3D12_ROOT_PARAMETER_TYPE_32BIT_CONSTANTS,
+			.Constants = {
+				.ShaderRegister = 1,
+				.RegisterSpace = 0,
+				.Num32BitValues = 16,
+			},
+			.ShaderVisibility = D3D12_SHADER_VISIBILITY_VERTEX,
 		},
-		.ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL,
+		{
+			.ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV,
+			.Descriptor = {
+				.ShaderRegister = 0,
+				.RegisterSpace = 0,
+				.Flags = D3D12_ROOT_DESCRIPTOR_FLAG_NONE,
+			},
+			.ShaderVisibility = D3D12_SHADER_VISIBILITY_VERTEX,
+		},
+		{
+			.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE,
+			.DescriptorTable = {
+				.NumDescriptorRanges = 1,
+				.pDescriptorRanges = &srvDescriptorRange,
+			},
+			.ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL,
+		},
 	};
 	D3D12_STATIC_SAMPLER_DESC samplerDesc = {
 		.Filter = D3D12_FILTER_MIN_MAG_MIP_POINT,
@@ -66,8 +90,8 @@ DirectX12Shader::DirectX12Shader(IRenderDevice* device, const std::u16string& fi
 	D3D12_VERSIONED_ROOT_SIGNATURE_DESC rootSignatureDescription = {
 		.Version = D3D_ROOT_SIGNATURE_VERSION_1_1,
 		.Desc_1_1 = {
-			.NumParameters = 1,
-			.pParameters = &rootParameter,
+			.NumParameters = _countof(rootParameter),
+			.pParameters = rootParameter,
 			.NumStaticSamplers = 1,
 			.pStaticSamplers = &samplerDesc,
 			.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT |
