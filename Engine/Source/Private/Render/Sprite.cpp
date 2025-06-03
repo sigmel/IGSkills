@@ -31,11 +31,10 @@ Sprite::Sprite(IRenderDevice* device, FileManager* file, SkFloat2 position, SkFl
 	_position(position),
 	_size(size),
 	_vertexBuffer(IVertexBuffer::Make(device, kVertices, sizeof(kVertices), sizeof(IVertexBuffer::VertexPosUV))),
-	_constantBuffer(IConstantBuffer::Make(device, sizeof(ConstantBuffer))),
 	_shader(IShader::Make(device, u"Content/Shaders/Sprite.hlsl", "VSMain", "PSMain", IVertexBuffer::VertexPosUV::kDescription)),
 	_texture(ITexture::Make(device, file->OpenFile(u"Content/Sprites/FlappyBirdSingle.png").get()))
 {
-	_spriteInfo._worldMatrix = SkIdentityMatrix();
+	_worldMatrix = SkIdentityMatrix();
 }
 
 Sprite::~Sprite()
@@ -45,8 +44,7 @@ Sprite::~Sprite()
 void Sprite::Render(IRenderDevice* device)
 {
 	device->SetShader(_shader.get());
-	device->SetConstantData(&_spriteInfo._worldMatrix, sizeof(_spriteInfo._worldMatrix));
-	_constantBuffer->Update(device, &_spriteInfo._worldMatrix, sizeof(_spriteInfo._worldMatrix)); // @todo: move this to be per frame
-	device->SetConstantBuffer(_constantBuffer.get());
+	device->SetConstantData(&_worldMatrix, sizeof(_worldMatrix));
+	device->ApplyCamera();
 	device->DrawTriangles(_vertexBuffer.get());
 }

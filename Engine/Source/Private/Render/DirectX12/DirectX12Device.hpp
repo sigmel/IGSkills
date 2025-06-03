@@ -19,6 +19,8 @@ public:
 	void SetThread() { _threadId = std::this_thread::get_id(); }
 
 	void SetShader(IShader* shader) override;
+	void SetCamera(ICamera* camera) override;
+	void ApplyCamera() override;
 	void SetConstantData(void* data, size_t size) override;
 	void SetConstantBuffer(IConstantBuffer* constantBuffer) override;
 
@@ -84,6 +86,8 @@ private:
 	Microsoft::WRL::ComPtr<ID3D12CommandAllocator> _resourceCommandAllocator;
 
 	bool _fullscreen = false;
+
+	ICamera* _currentCamera = nullptr;
 
 	void UpdateRenderTargetViews();
 };

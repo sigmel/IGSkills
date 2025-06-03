@@ -6,6 +6,7 @@
 #include "DirectX12Buffer.hpp"
 
 #include "Window/Window.hpp"
+#include "Render/Camera.hpp"
 
 using namespace std;
 using namespace Microsoft::WRL;
@@ -148,6 +149,17 @@ void DirectX12Device::SetShader(IShader* shader)
 	_commandList->SetGraphicsRootDescriptorTable(2, _srvHeap->GetGPUDescriptorHandleForHeapStart());
 }
 
+void DirectX12Device::SetCamera(ICamera* camera)
+{
+	_currentCamera = camera;
+}
+
+void DirectX12Device::ApplyCamera()
+{
+	assert(_currentCamera != nullptr);
+	_currentCamera->SetRenderInfo(this);
+}
+
 void DirectX12Device::SetConstantData(void* data, size_t size)
 {
 	_commandList->SetGraphicsRoot32BitConstants(0, static_cast<uint32_t>(size / 4), data, 0);
@@ -225,6 +237,8 @@ void DirectX12Device::Present()
 
 	// Set the fence value for the next frame.
 	_frameFenceValues[_currentBackBufferIndex] = currentValue + 1;
+
+	_currentCamera = nullptr;
 }
 
 void DirectX12Device::WaitForGpu()

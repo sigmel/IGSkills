@@ -7,6 +7,7 @@
 class Window;
 class IRenderDevice;
 class Sprite;
+class OrthographicCamera;
 class FileManager;
 
 class Application
@@ -25,4 +26,6 @@ private:
 	std::unique_ptr<Window> _window;
 	std::unique_ptr<IRenderDevice> _renderDevice;
 	std::unique_ptr<Sprite> _sprite;
+
+	std::unique_ptr<OrthographicCamera> _camera;
 };

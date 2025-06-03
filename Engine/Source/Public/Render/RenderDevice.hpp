@@ -6,6 +6,7 @@
 
 class Window;
 class IShader;
+class ICamera;
 class IVertexBuffer;
 class IConstantBuffer;
 
@@ -18,8 +19,10 @@ public:
 	virtual void Clear(float r, float g, float b, float depth) = 0;
 
 	virtual void SetShader(IShader* shader) = 0;
+	virtual void SetCamera(ICamera* camera) = 0;
+	virtual void ApplyCamera() = 0;
 	virtual void SetConstantData(void* data, size_t size) = 0;
-	virtual void SetConstantBuffer(IConstantBuffer* shader) = 0;
+	virtual void SetConstantBuffer(IConstantBuffer* constantBuffer) = 0;
 
 	virtual void DrawTriangles(IVertexBuffer* vertexBuffer) = 0;
 
