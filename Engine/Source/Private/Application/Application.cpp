@@ -30,7 +30,7 @@ void Application::MakeRenderDevice()
 
 	_renderDevice->StartInitResources();
 	_camera = std::make_unique<OrthographicCamera>(_renderDevice.get());
-	_sprite = std::make_unique<Sprite>(_renderDevice.get(), _fileManager.get(), SkFloat2(0, 0), SkFloat2(0, 0));
+	_sprite = std::make_unique<Sprite>(_renderDevice.get(), _fileManager.get(), u"Content/Sprites/FlappyBirdSingle.png", SkFloat2(5, 0), SkFloat2(17, 12));
 	_renderDevice->EndInitResources();
 }
 
@@ -43,7 +43,7 @@ void Application::Run()
 		// @TODO: simplify this so we aren't putting so much implementation on the caller
 		_renderDevice->Reset();
 		_renderDevice->Clear(0, 0, 0, 1);
-		_camera->SetInfo(SkFloat2(0, 0), SkFloat2(16, 9));
+		_camera->SetInfo(SkFloat2(0, 0), SkFloat2(160, 90));
 		_camera->Select(_renderDevice.get());
 		_sprite->Render(_renderDevice.get());
 		_renderDevice->Present();

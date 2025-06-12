@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <string>
 
 #include "Core/ApiExport.hpp"
 #include "Math/Math.hpp"
@@ -15,7 +16,7 @@ class FileManager;
 class Sprite
 {
 public:
-	LIBRARY_API Sprite(IRenderDevice* device, FileManager* file, SkFloat2 position, SkFloat2 size);
+	LIBRARY_API Sprite(IRenderDevice* device, FileManager* file, const std::u16string& filename, SkFloat2 position, SkFloat2 size);
 	LIBRARY_API ~Sprite();
 
 	LIBRARY_API void Render(IRenderDevice* device);

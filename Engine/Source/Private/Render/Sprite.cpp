@@ -27,14 +27,14 @@ static const IVertexBuffer::VertexPosColor kVertices[] = {
 };
 */
 
-Sprite::Sprite(IRenderDevice* device, FileManager* file, SkFloat2 position, SkFloat2 size):
+Sprite::Sprite(IRenderDevice* device, FileManager* file, const std::u16string& filename, SkFloat2 position, SkFloat2 size):
 	_position(position),
 	_size(size),
 	_vertexBuffer(IVertexBuffer::Make(device, kVertices, sizeof(kVertices), sizeof(IVertexBuffer::VertexPosUV))),
 	_shader(IShader::Make(device, u"Content/Shaders/Sprite.hlsl", "VSMain", "PSMain", IVertexBuffer::VertexPosUV::kDescription)),
-	_texture(ITexture::Make(device, file->OpenFile(u"Content/Sprites/FlappyBirdSingle.png").get()))
+	_texture(ITexture::Make(device, file->OpenFile(filename).get()))
 {
-	_worldMatrix = SkIdentityMatrix();
+	_worldMatrix = SkAffineMatrix(SkFloat3(position.x, position.y, 0.0f), SkFloat3(size.x, size.y, 1.0f));
 }
 
 Sprite::~Sprite()
