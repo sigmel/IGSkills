@@ -32,7 +32,7 @@ VertexShaderOutput VSMain(VertexShaderInput input)
 {
 	VertexShaderOutput output = (VertexShaderOutput)0;
 
-	matrix MVP = mul(Model, VP);
+	matrix MVP = mul(VP, Model);
 	output.position = mul(MVP, float4(input.position, 1));
 	output.uv = input.uv;
 
